@@ -1,10 +1,8 @@
-package Tests;
+package tests;
 
-import DataStorage.DataStore;
+import datastorage.DataStore;
 import io.restassured.RestAssured;
-import io.restassured.http.Cookie;
 import io.restassured.http.Cookies;
-import models.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

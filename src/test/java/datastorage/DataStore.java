@@ -1,4 +1,4 @@
-package DataStorage;
+package datastorage;
 
 public class DataStore {
     public static int windDegree;

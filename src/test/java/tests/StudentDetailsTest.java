@@ -1,6 +1,8 @@
-package Tests;
+package tests;
 
-import DataStorage.DataStore;
+import datastorage.DataStore;
+import datastorage.StudentResponse;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import models.Student;
@@ -89,7 +91,13 @@ public class StudentDetailsTest {
 
     @Test
     public void shouldPostOtherNewStudent() {
-        student = new Student("Salma", "Hayek", "Dorota", "01/05/1980");
+//        student = new Student("Salma", "Hayek", "Dorota", "01/05/1980");
+        student = Student.builder()
+                .first_name("Salma")
+                .last_name("Hayek")
+                .middle_name("Dorota")
+                .date_of_birth("01/05/1980")
+                .build();
         given()
                 .baseUri(url)
                 .basePath(studentsDetails)
@@ -102,5 +110,26 @@ public class StudentDetailsTest {
                 .statusCode(201)
                 .log()
                 .all();
+    }
+
+    @Test
+    public void shouldGetNewStudentAndExtractAsTypeRef() {
+        StudentResponse studResp = given()
+                .baseUri(url)
+                .basePath(studentsDetails)
+                .pathParam("studentId", "10093444")
+                .contentType(ContentType.JSON)
+                .log()
+                .all()
+                .get("/{studentId}")
+                .then()
+                .statusCode(200)
+                .log()
+                .all()
+                .extract()
+                .as(new TypeRef<StudentResponse>() {});
+//                .as(StudentResponse.class);
+
+        System.out.println(studResp);
     }
 }
