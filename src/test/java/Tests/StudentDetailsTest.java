@@ -1,5 +1,6 @@
 package Tests;
 
+import DataStorage.DataStore;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import models.Student;
@@ -24,7 +25,7 @@ public class StudentDetailsTest {
 
     @Test
     public void shouldPostNewStudent() {
-        given()
+        DataStore.studentId = given()
                 .baseUri(url)
                 .basePath(studentsDetails)
                 .contentType(ContentType.JSON)
@@ -34,6 +35,22 @@ public class StudentDetailsTest {
                 .post()
                 .then()
                 .statusCode(201)
+                .log()
+                .all()
+                .extract()
+                .jsonPath()
+                .get("id");
+
+        given()
+                .baseUri(url)
+                .basePath(studentsDetails)
+                .pathParam("studentId", DataStore.studentId)
+                .contentType(ContentType.JSON)
+                .log()
+                .all()
+                .get("/{studentId}")
+                .then()
+                .statusCode(200)
                 .log()
                 .all();
     }
@@ -56,11 +73,10 @@ public class StudentDetailsTest {
 
     @Test
     public void shouldDeleteNewStudent() {
-        String studentId = "10093393";
         given()
                 .baseUri(url)
                 .basePath(studentsDetails)
-                .pathParam("studentId", studentId)
+                .pathParam("studentId", DataStore.studentId)
                 .contentType(ContentType.JSON)
                 .log()
                 .all()
