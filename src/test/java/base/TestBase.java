@@ -21,6 +21,6 @@ public class TestBase {
                 .addParam("appid", System.getProperty("appid"))
                 .setContentType(ContentType.JSON)
                 .build()
-                .filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+                .filters(new RequestLoggingFilter(), new ResponseLoggingFilter());  // different way to display logs. For example when classic way is not working with RespSpec
     }
 }
