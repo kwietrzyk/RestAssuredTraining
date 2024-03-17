@@ -14,7 +14,7 @@ public class GetStudent implements ExecutableRequest {
     public GetStudent(String studentId, RequestSpecBuilder requestSpecBuilder) {
         this.requestSpecBuilder = requestSpecBuilder;
         this.requestSpecBuilder.setContentType(ContentType.JSON);
-        this.requestSpecBuilder.addParam("studentId", studentId);
+        this.requestSpecBuilder.addPathParam("studentId", studentId);
     }
 
     @Override

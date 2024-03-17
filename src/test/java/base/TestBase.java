@@ -6,6 +6,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import models.MockStudent;
 import org.junit.jupiter.api.BeforeAll;
 import static io.restassured.RestAssured.*;
 
